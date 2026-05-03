@@ -17,19 +17,16 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             padding: 20px;
             overflow-y: auto;
-            overflow-x: hidden;
         }
 
         /* Nền Galaxy */
         .stars {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: 0;
             pointer-events: none;
             background: 
@@ -47,21 +44,18 @@
 
         .nebula {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: 0;
             pointer-events: none;
             background: 
-                radial-gradient(ellipse at 30% 50%, rgba(128, 0, 255, 0.3) 0%, transparent 50%),
-                radial-gradient(ellipse at 70% 30%, rgba(0, 100, 255, 0.3) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 70%, rgba(255, 0, 128, 0.2) 0%, transparent 50%);
+                radial-gradient(ellipse at 30% 50%, rgba(128,0,255,0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 30%, rgba(0,100,255,0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 70%, rgba(255,0,128,0.2) 0%, transparent 50%);
         }
 
-        /* Container chính - CÓ THỂ CUỘN */
         .container {
-            background: rgba(15, 5, 30, 0.95);
+            background: rgba(15,5,30,0.95);
             border: 2px solid #b400ff;
             border-radius: 20px;
             padding: 35px 25px;
@@ -70,40 +64,24 @@
             width: 100%;
             position: relative;
             z-index: 1;
-            margin: 30px auto;
-            min-height: auto;
-            box-shadow: 
-                0 0 50px rgba(180, 0, 255, 0.3),
-                0 0 100px rgba(0, 200, 255, 0.2),
-                inset 0 0 30px rgba(180, 0, 255, 0.05);
+            box-shadow: 0 0 50px rgba(180,0,255,0.3), 0 0 100px rgba(0,200,255,0.2);
             animation: glow 3s infinite alternate;
         }
 
         @keyframes glow {
-            0% {
-                box-shadow: 0 0 30px rgba(180, 0, 255, 0.2), 0 0 60px rgba(0, 200, 255, 0.1);
-                border-color: #b400ff;
-            }
-            100% {
-                box-shadow: 0 0 60px rgba(180, 0, 255, 0.5), 0 0 120px rgba(0, 200, 255, 0.3);
-                border-color: #00ccff;
-            }
+            0% { box-shadow: 0 0 30px rgba(180,0,255,0.2); border-color: #b400ff; }
+            100% { box-shadow: 0 0 60px rgba(180,0,255,0.5); border-color: #00ccff; }
         }
 
-        .logo {
-            font-size: 50px;
-            margin-bottom: 5px;
-            animation: bounce 2s infinite;
-        }
-
+        .logo { font-size: 50px; animation: bounce 2s infinite; }
         @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
+            0%,100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
 
         h1 {
             font-size: 28px;
-            margin-bottom: 5px;
+            margin: 5px 0;
             background: linear-gradient(90deg, #b400ff, #00ccff, #b400ff);
             background-size: 200% 100%;
             -webkit-background-clip: text;
@@ -111,43 +89,21 @@
             background-clip: text;
             animation: gradient 3s infinite linear;
         }
-
         @keyframes gradient {
             0% { background-position: 0% 50%; }
             100% { background-position: 200% 50%; }
         }
 
-        .subtitle {
-            color: #aaa;
-            font-size: 13px;
-            margin-bottom: 25px;
-        }
+        .subtitle { color: #aaa; font-size: 13px; margin-bottom: 20px; }
 
-        /* Key display */
         .key-container {
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0,0,0,0.6);
             border: 2px solid #b400ff;
             border-radius: 12px;
             padding: 18px 15px;
             margin: 20px 0;
             position: relative;
             overflow: hidden;
-        }
-
-        .key-container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(transparent, transparent, transparent, #b400ff);
-            animation: rotate 4s linear infinite;
-            opacity: 0.15;
-        }
-
-        @keyframes rotate {
-            100% { transform: rotate(360deg); }
         }
 
         .key-label {
@@ -169,11 +125,10 @@
             min-height: 30px;
             position: relative;
             z-index: 1;
-            text-shadow: 0 0 10px rgba(0, 255, 150, 0.5);
+            text-shadow: 0 0 10px rgba(0,255,150,0.5);
             transition: all 0.3s;
         }
 
-        /* Nút */
         .buttons {
             display: flex;
             gap: 10px;
@@ -189,8 +144,6 @@
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
             text-transform: uppercase;
             letter-spacing: 1px;
             flex: 1;
@@ -200,428 +153,193 @@
         .btn-generate {
             background: linear-gradient(135deg, #b400ff, #00ccff);
             color: white;
-            font-size: 16px;
         }
-
         .btn-generate:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(180, 0, 255, 0.4);
-        }
-
-        .btn-generate:active {
-            transform: scale(0.95);
+            box-shadow: 0 10px 30px rgba(180,0,255,0.4);
         }
 
         .btn-copy {
-            background: rgba(0, 255, 153, 0.2);
+            background: rgba(0,255,153,0.2);
             color: #00ff99;
             border: 2px solid #00ff99;
         }
+        .btn-copy:hover { background: rgba(0,255,153,0.3); }
+        .btn-copy.copied { background: #00ff99; color: #000; }
 
-        .btn-copy:hover {
-            background: rgba(0, 255, 153, 0.3);
-            box-shadow: 0 5px 20px rgba(0, 255, 153, 0.3);
-        }
-
-        .btn-copy.copied {
-            background: #00ff99;
-            color: #000;
-        }
-
-        /* Badge */
         .badge {
             display: inline-block;
             padding: 6px 15px;
             border-radius: 20px;
             font-size: 12px;
             margin: 5px;
-        }
-
-        .badge-time {
-            background: rgba(255, 170, 0, 0.2);
+            background: rgba(255,170,0,0.2);
             color: #ffaa00;
-            border: 1px solid rgba(255, 170, 0, 0.3);
+            border: 1px solid rgba(255,170,0,0.3);
         }
 
         .copy-msg {
             color: #00ff99;
-            margin-top: 10px;
+            margin-top: 8px;
             font-size: 13px;
             opacity: 0;
             transition: opacity 0.3s;
         }
-
-        .copy-msg.show {
-            opacity: 1;
-        }
+        .copy-msg.show { opacity: 1; }
 
         .info-box {
             margin-top: 20px;
             padding: 12px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255,255,255,0.05);
             border-radius: 10px;
             text-align: left;
             font-size: 11px;
             color: #aaa;
             line-height: 1.8;
         }
+        .info-box span { color: #00ccff; }
 
-        .info-box span {
-            color: #00ccff;
-        }
-
-        /* ============================== */
-        /*  PHẦN KEY ADMIN (ẨN)          */
-        /* ============================== */
+        /* Key Admin Ẩn */
         .admin-section {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
-
-        .admin-title {
-            color: #666;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: default;
-            user-select: none;
-        }
-
         .admin-key {
             color: #333;
             font-size: 13px;
             font-family: 'Courier New', monospace;
             margin-top: 5px;
-            transition: color 0.3s;
             cursor: pointer;
+            transition: color 0.3s;
             user-select: none;
         }
-
-        .admin-key:hover {
-            color: #ff4444;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-        }
-
+        .admin-key:hover { color: #ff4444; }
         .admin-key.revealed {
             color: #ff4444;
-            text-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+            text-shadow: 0 0 15px rgba(255,0,0,0.7);
         }
+        .hint-text { color: #555; font-size: 10px; font-style: italic; }
 
-        .hint-text {
-            color: #555;
-            font-size: 10px;
-            font-style: italic;
-            margin-top: 3px;
-        }
-
-        /* ============================== */
-        /*  PHẦN TÊN MIỀN TÙY CHỈNH      */
-        /* ============================== */
-        .domain-section {
-            margin-top: 25px;
-            padding: 15px;
-            background: rgba(0, 200, 255, 0.05);
-            border-radius: 10px;
-            border: 1px solid rgba(0, 200, 255, 0.2);
-        }
-
-        .domain-section label {
-            color: #aaa;
-            font-size: 12px;
-            display: block;
-            margin-bottom: 8px;
-            text-align: left;
-        }
-
-        .domain-input-group {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .domain-prefix {
-            color: #888;
-            font-size: 14px;
-            font-family: 'Courier New', monospace;
-            white-space: nowrap;
-        }
-
-        .domain-input {
-            flex: 1;
-            min-width: 120px;
-            padding: 10px 12px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(0, 200, 255, 0.3);
-            border-radius: 8px;
-            color: #fff;
-            font-size: 14px;
-            font-family: 'Courier New', monospace;
-            outline: none;
-            transition: all 0.3s;
-        }
-
-        .domain-input:focus {
-            border-color: #00ccff;
-            box-shadow: 0 0 15px rgba(0, 200, 255, 0.2);
-        }
-
-        .domain-input::placeholder {
-            color: #555;
-        }
-
-        .btn-domain {
-            padding: 10px 18px;
-            background: linear-gradient(135deg, #00ccff, #0088cc);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            white-space: nowrap;
-        }
-
-        .btn-domain:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 5px 15px rgba(0, 200, 255, 0.3);
-        }
-
-        .your-domain {
-            margin-top: 10px;
-            padding: 8px 12px;
-            background: rgba(0, 255, 153, 0.1);
-            border-radius: 6px;
-            color: #00ff99;
-            font-size: 14px;
-            font-family: 'Courier New', monospace;
-            word-break: break-all;
-            display: none;
-        }
-
-        .your-domain.show {
-            display: block;
-        }
-
-        .your-domain a {
-            color: #00ff99;
-            text-decoration: none;
-        }
-
-        .your-domain a:hover {
-            text-decoration: underline;
-        }
-
-        /* ============================== */
-        /*  FOOTER                        */
-        /* ============================== */
         .footer {
             margin-top: 20px;
             padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255,255,255,0.1);
             color: #555;
             font-size: 10px;
-            text-align: center;
         }
 
-        .footer a {
-            color: #777;
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            color: #00ccff;
-        }
-
-        /* Responsive */
         @media (max-width: 480px) {
-            .container {
-                padding: 25px 15px;
-                margin: 15px auto;
-            }
+            .container { padding: 25px 15px; }
             h1 { font-size: 22px; }
             .key-display { font-size: 15px; }
             .btn { font-size: 13px; padding: 12px 14px; }
-            .domain-prefix { font-size: 11px; }
         }
     </style>
 </head>
 <body>
-    <!-- Nền Galaxy -->
     <div class="stars"></div>
     <div class="nebula"></div>
 
     <div class="container">
         <div class="logo">🌌</div>
         <h1>Sh1ne Hub - Key Generator</h1>
-        <p class="subtitle">Tạo key để mở khóa script Roblox</p>
+        <p class="subtitle">Tạo key ngẫu nhiên để mở khóa script</p>
 
-        <!-- Key Display -->
         <div class="key-container">
             <div class="key-label">🔒 Key của bạn</div>
             <div class="key-display" id="keyDisplay">Sh1ne</div>
         </div>
 
-        <!-- Nút -->
         <div class="buttons">
-            <button class="btn btn-generate" onclick="generateKey()">
-                🎫 Tạo Key Mới
-            </button>
-            <button class="btn btn-copy" id="copyBtn" onclick="copyKey()">
-                📋 Copy Key
-            </button>
+            <button class="btn btn-generate" onclick="generateKey()">🎫 Tạo Key Mới</button>
+            <button class="btn btn-copy" id="copyBtn" onclick="copyKey()">📋 Copy Key</button>
         </div>
 
         <p class="copy-msg" id="copyMsg">✅ Đã copy vào clipboard!</p>
-        <span class="badge badge-time">⏰ Key có hiệu lực 48 giờ</span>
+        <span class="badge">⏰ Key có hiệu lực 48 giờ</span>
 
-        <!-- Info Box -->
         <div class="info-box">
             📌 <span>Hướng dẫn:</span><br>
             1️⃣ Bấm <span>Tạo Key Mới</span> để lấy key<br>
             2️⃣ Bấm <span>Copy Key</span> để copy<br>
-            3️⃣ Dán key vào game → <span>UNLOCK</span><br>
-            <br>
-            🔑 <span>Key Backup:</span> Sh1ne
+            3️⃣ Dán key vào game Roblox<br>
+            4️⃣ Bấm <span>UNLOCK</span> để mở khóa
         </div>
 
-        <!-- ============================== -->
-        <!--  KEY ADMIN (ẨN)               -->
-        <!-- ============================== -->
+        <!-- Key Admin Ẩn -->
         <div class="admin-section">
-            <p class="admin-title">👑 Key Admin</p>
-            <p class="admin-key" id="adminKey" onclick="revealAdminKey()" title="Nhấp để hiện">
-                ••••••••••••••
-            </p>
+            <p class="admin-key" id="adminKey" onclick="revealAdmin()">••••••••••••••</p>
             <p class="hint-text">(Nhấp vào dấu chấm để hiện key admin)</p>
         </div>
 
-        <!-- ============================== -->
-        <!--  TÊN MIỀN TÙY CHỈNH           -->
-        <!-- ============================== -->
-        <div class="domain-section">
-            <label>🌐 Tạo tên miền tùy chỉnh cho trang web của bạn:</label>
-            <div class="domain-input-group">
-                <span class="domain-prefix">https://</span>
-                <input 
-                    type="text" 
-                    class="domain-input" 
-                    id="domainInput" 
-                    placeholder="ten-cua-ban" 
-                    maxlength="50"
-                >
-                <span class="domain-prefix">.github.io/sh1ne-hub/</span>
-                <button class="btn-domain" onclick="createCustomDomain()">
-                    🔗 Tạo Link
-                </button>
-            </div>
-            <div class="your-domain" id="yourDomain">
-                ✅ Link của bạn: <a href="#" id="domainLink" target="_blank"></a>
-                <br>
-                <small style="color:#aaa;">(Copy link này và thay vào script Roblox)</small>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="footer">
-            Sh1ne Hub © 2024 | 
-            <a href="https://github.com" target="_blank">GitHub</a> | 
-            <a href="#" onclick="alert('Phiên bản 2.0 - Evade Compatible')">v2.0</a>
-        </div>
+        <div class="footer">Sh1ne Hub © 2024 | v2.0</div>
     </div>
 
     <script>
-        // ==============================
-        //  KEY ADMIN (ẨN)
-        // ==============================
         const ADMIN_KEY = "RzSh1ne";
-        let adminRevealed = false;
+        let revealed = false;
 
-        function revealAdminKey() {
-            const adminKeyEl = document.getElementById("adminKey");
-            if (!adminRevealed) {
-                adminKeyEl.textContent = ADMIN_KEY;
-                adminKeyEl.classList.add("revealed");
-                adminRevealed = true;
-                
-                // Tự động ẩn lại sau 10 giây
+        function revealAdmin() {
+            const el = document.getElementById("adminKey");
+            if (!revealed) {
+                el.textContent = ADMIN_KEY;
+                el.classList.add("revealed");
+                revealed = true;
                 setTimeout(() => {
-                    adminKeyEl.textContent = "••••••••••••••";
-                    adminKeyEl.classList.remove("revealed");
-                    adminRevealed = false;
+                    el.textContent = "••••••••••••••";
+                    el.classList.remove("revealed");
+                    revealed = false;
                 }, 10000);
             }
         }
 
-        // ==============================
-        //  TẠO KEY NGẪU NHIÊN
-        // ==============================
         function generateKey() {
             const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             const specials = "!@#$%^&*_-+=.";
-            const timestamp = Date.now().toString(36).slice(-4).toUpperCase();
+            const ts = Date.now().toString(36).slice(-4).toUpperCase();
             
             let key = "Sh1ne-";
-            
-            for (let i = 0; i < 8; i++) {
-                key += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            
+            for (let i = 0; i < 8; i++) key += chars.charAt(Math.floor(Math.random() * chars.length));
             key += specials.charAt(Math.floor(Math.random() * specials.length));
             key += specials.charAt(Math.floor(Math.random() * specials.length));
-            key += "-" + timestamp;
+            key += "-" + ts;
             
             const display = document.getElementById("keyDisplay");
             display.style.transform = "scale(1.1)";
             display.textContent = key;
             display.style.color = "#fff";
-            display.style.textShadow = "0 0 30px rgba(255, 255, 255, 0.8)";
-            
             setTimeout(() => {
                 display.style.transform = "scale(1)";
                 display.style.color = "#00ff99";
-                display.style.textShadow = "0 0 10px rgba(0, 255, 150, 0.5)";
             }, 200);
             
-            const copyBtn = document.getElementById("copyBtn");
-            copyBtn.textContent = "📋 Copy Key";
-            copyBtn.classList.remove("copied");
+            document.getElementById("copyBtn").textContent = "📋 Copy Key";
+            document.getElementById("copyBtn").classList.remove("copied");
         }
 
-        // ==============================
-        //  COPY KEY
-        // ==============================
         function copyKey() {
             const key = document.getElementById("keyDisplay").textContent;
-            
-            if (!key) {
-                alert("⚠️ Hãy tạo key trước!");
-                return;
-            }
+            if (!key) return alert("⚠️ Hãy tạo key trước!");
             
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(key).then(() => showCopySuccess())
-                .catch(() => fallbackCopy(key));
-            } else {
-                fallbackCopy(key);
-            }
+                navigator.clipboard.writeText(key).then(() => showCopyOk())
+                .catch(() => fallback(key));
+            } else { fallback(key); }
         }
 
-        function fallbackCopy(text) {
+        function fallback(text) {
             const ta = document.createElement("textarea");
             ta.value = text;
-            ta.style.cssText = "position:fixed;left:-9999px;top:-9999px";
+            ta.style.cssText = "position:fixed;left:-9999px";
             document.body.appendChild(ta);
-            ta.focus(); ta.select();
-            try { document.execCommand("copy"); showCopySuccess(); }
-            catch(e) { alert("❌ Copy thủ công: " + text); }
+            ta.select();
+            try { document.execCommand("copy"); showCopyOk(); }
+            catch(e) { alert("Copy thủ công: " + text); }
             document.body.removeChild(ta);
         }
 
-        function showCopySuccess() {
+        function showCopyOk() {
             const btn = document.getElementById("copyBtn");
             const msg = document.getElementById("copyMsg");
             btn.textContent = "✅ Đã Copy!";
@@ -634,17 +352,10 @@
             }, 2500);
         }
 
-        // ==============================
-        //  TÊN MIỀN TÙY CHỈNH
-        // ==============================
-        function createCustomDomain() {
-            const input = document.getElementById("domainInput").value.trim().toLowerCase();
-            
-            if (!input) {
-                alert("⚠️ Vui lòng nhập tên miền!");
-                return;
-            }
-            
-            // Kiểm tra ký tự hợp lệ
-            if (!/^[a-z0-9-]+$/.test(input)) {
-                alert("❌ Tên miền chỉ 
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') { e.preventDefault(); generateKey(); }
+            if (e.ctrlKey && e.key === 'c') { e.preventDefault(); copyKey(); }
+        });
+    </script>
+</body>
+    </html>
