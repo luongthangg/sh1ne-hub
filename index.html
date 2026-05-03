@@ -1,1 +1,454 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sh1ne Hub - Key Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000010;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        /* Nền Galaxy */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: 
+                radial-gradient(2px 2px at 20% 30%, #fff, transparent),
+                radial-gradient(2px 2px at 40% 70%, #fff, transparent),
+                radial-gradient(1px 1px at 60% 20%, #fff, transparent),
+                radial-gradient(1px 1px at 80% 50%, #fff, transparent),
+                radial-gradient(2px 2px at 10% 80%, #fff, transparent),
+                radial-gradient(1px 1px at 70% 60%, #fff, transparent),
+                radial-gradient(2px 2px at 30% 50%, #fff, transparent),
+                radial-gradient(1px 1px at 50% 40%, #fff, transparent),
+                radial-gradient(1px 1px at 90% 80%, #fff, transparent),
+                radial-gradient(2px 2px at 15% 15%, #fff, transparent);
+            animation: twinkle 4s infinite alternate;
+        }
+
+        .nebula {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: 
+                radial-gradient(ellipse at 30% 50%, rgba(128, 0, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 30%, rgba(0, 100, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 70%, rgba(255, 0, 128, 0.2) 0%, transparent 50%);
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Container chính */
+        .container {
+            background: rgba(15, 5, 30, 0.95);
+            border: 2px solid #b400ff;
+            border-radius: 20px;
+            padding: 35px 25px;
+            text-align: center;
+            max-width: 450px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+            box-shadow: 
+                0 0 50px rgba(180, 0, 255, 0.3),
+                0 0 100px rgba(0, 200, 255, 0.2),
+                inset 0 0 30px rgba(180, 0, 255, 0.05);
+            animation: glow 3s infinite alternate;
+        }
+
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 30px rgba(180, 0, 255, 0.2), 0 0 60px rgba(0, 200, 255, 0.1);
+                border-color: #b400ff;
+            }
+            100% {
+                box-shadow: 0 0 60px rgba(180, 0, 255, 0.5), 0 0 120px rgba(0, 200, 255, 0.3);
+                border-color: #00ccff;
+            }
+        }
+
+        .logo {
+            font-size: 50px;
+            margin-bottom: 5px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+            background: linear-gradient(90deg, #b400ff, #00ccff, #b400ff);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient 3s infinite linear;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .subtitle {
+            color: #aaa;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        /* Key display */
+        .key-container {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #b400ff;
+            border-radius: 12px;
+            padding: 18px 15px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .key-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, transparent, transparent, #b400ff);
+            animation: rotate 4s linear infinite;
+            opacity: 0.15;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .key-label {
+            color: #888;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .key-display {
+            font-size: 20px;
+            font-family: 'Courier New', monospace;
+            color: #00ff99;
+            font-weight: bold;
+            word-break: break-all;
+            min-height: 30px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 10px rgba(0, 255, 150, 0.5);
+            transition: all 0.3s;
+        }
+
+        /* Nút */
+        .buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .btn-generate {
+            background: linear-gradient(135deg, #b400ff, #00ccff);
+            color: white;
+            font-size: 16px;
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(180, 0, 255, 0.4);
+        }
+
+        .btn-generate:active {
+            transform: scale(0.95);
+        }
+
+        .btn-copy {
+            background: rgba(0, 255, 153, 0.2);
+            color: #00ff99;
+            border: 2px solid #00ff99;
+        }
+
+        .btn-copy:hover {
+            background: rgba(0, 255, 153, 0.3);
+            box-shadow: 0 5px 20px rgba(0, 255, 153, 0.3);
+        }
+
+        .btn-copy.copied {
+            background: #00ff99;
+            color: #000;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            background: rgba(255, 170, 0, 0.2);
+            color: #ffaa00;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 15px;
+            border: 1px solid rgba(255, 170, 0, 0.3);
+        }
+
+        .admin-badge {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff4444;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            margin-left: 5px;
+        }
+
+        .info-box {
+            margin-top: 20px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            text-align: left;
+            font-size: 11px;
+            color: #aaa;
+            line-height: 1.8;
+        }
+
+        .info-box span {
+            color: #00ccff;
+        }
+
+        .copy-msg {
+            color: #00ff99;
+            margin-top: 10px;
+            font-size: 13px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .copy-msg.show {
+            opacity: 1;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px 15px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            .key-display {
+                font-size: 16px;
+            }
+            .btn {
+                font-size: 13px;
+                padding: 12px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Nền Galaxy -->
+    <div class="stars"></div>
+    <div class="nebula"></div>
+
+    <div class="container">
+        <div class="logo">🌌</div>
+        <h1>Sh1ne Hub - Key Generator</h1>
+        <p class="subtitle">Tạo key để mở khóa script</p>
+
+        <div class="key-container">
+            <div class="key-label">🔒 Key của bạn</div>
+            <div class="key-display" id="keyDisplay">Sh1ne</div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn btn-generate" onclick="generateKey()">
+                🎫 Tạo Key Mới
+            </button>
+            <button class="btn btn-copy" id="copyBtn" onclick="copyKey()">
+                📋 Copy Key
+            </button>
+        </div>
+
+        <p class="copy-msg" id="copyMsg">✅ Đã copy vào clipboard!</p>
+
+        <span class="badge">⏰ Key thường: 48 giờ</span>
+        <span class="badge admin-badge">👑 Admin: RzSh1ne (vĩnh viễn)</span>
+
+        <div class="info-box">
+            📌 <span>Hướng dẫn:</span><br>
+            1️⃣ Bấm <span>Tạo Key Mới</span> để lấy key<br>
+            2️⃣ Bấm <span>Copy Key</span> để copy<br>
+            3️⃣ Dán key vào game Roblox<br>
+            4️⃣ Bấm <span>UNLOCK</span> để mở khóa<br>
+            <br>
+            🔑 <span>Key Admin:</span> RzSh1ne (dùng vĩnh viễn)<br>
+            🔑 <span>Key Backup:</span> Sh1ne
+        </div>
+    </div>
+
+    <script>
+        // Tạo key ngẫu nhiên
+        function generateKey() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            const specials = "!@#$%^&*_-+=.";
+            const timestamp = Date.now().toString(36).slice(-4).toUpperCase();
+            
+            let key = "Sh1ne-";
+            
+            // 8 ký tự random (chữ + số)
+            for (let i = 0; i < 8; i++) {
+                key += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            
+            // 2 ký tự đặc biệt
+            key += specials.charAt(Math.floor(Math.random() * specials.length));
+            key += specials.charAt(Math.floor(Math.random() * specials.length));
+            
+            // Timestamp
+            key += "-" + timestamp;
+            
+            // Hiển thị
+            const display = document.getElementById("keyDisplay");
+            display.style.transform = "scale(1.1)";
+            display.textContent = key;
+            display.style.color = "#fff";
+            display.style.textShadow = "0 0 30px rgba(255, 255, 255, 0.8)";
+            
+            setTimeout(() => {
+                display.style.transform = "scale(1)";
+                display.style.color = "#00ff99";
+                display.style.textShadow = "0 0 10px rgba(0, 255, 150, 0.5)";
+            }, 200);
+            
+            // Reset nút copy
+            const copyBtn = document.getElementById("copyBtn");
+            copyBtn.textContent = "📋 Copy Key";
+            copyBtn.classList.remove("copied");
+            
+            console.log("[Sh1ne] Key mới: " + key);
+        }
+
+        // Copy key
+        function copyKey() {
+            const key = document.getElementById("keyDisplay").textContent;
+            
+            if (!key || key === "Nhấn nút để tạo key") {
+                alert("⚠️ Hãy tạo key trước!");
+                return;
+            }
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(key).then(() => {
+                    showCopySuccess();
+                }).catch(() => {
+                    fallbackCopy(key);
+                });
+            } else {
+                fallbackCopy(key);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            textArea.style.top = "-9999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand("copy");
+                showCopySuccess();
+            } catch (err) {
+                alert("❌ Không thể copy! Hãy copy thủ công: " + text);
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        function showCopySuccess() {
+            const copyBtn = document.getElementById("copyBtn");
+            const copyMsg = document.getElementById("copyMsg");
+            
+            copyBtn.textContent = "✅ Đã Copy!";
+            copyBtn.classList.add("copied");
+            
+            copyMsg.classList.add("show");
+            
+            setTimeout(() => {
+                copyBtn.textContent = "📋 Copy Key";
+                copyBtn.classList.remove("copied");
+                copyMsg.classList.remove("show");
+            }, 2500);
+        }
+
+        // Phím tắt
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                generateKey();
+            }
+            if (e.ctrlKey && e.key === 'k') {
+                e.preventDefault();
+                copyKey();
+            }
+        });
+
+        // Tự động tạo key khi vào trang
+        window.onload = function() {
+            // Để key mặc định trước, người dùng tự tạo
+            console.log("[Sh1ne] Web Get Key đã sẵn sàng!");
+            console.log("[Sh1ne] Key Admin: RzSh1ne");
+            console.log("[Sh1ne] Nhấn Enter hoặc bấm nút để tạo key mới");
+        };
+    </script>
+</body>
+  </html>
