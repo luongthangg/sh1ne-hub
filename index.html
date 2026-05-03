@@ -17,9 +17,10 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             padding: 20px;
-            overflow: hidden;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
         /* Nền Galaxy */
@@ -30,6 +31,7 @@
             width: 100%;
             height: 100%;
             z-index: 0;
+            pointer-events: none;
             background: 
                 radial-gradient(2px 2px at 20% 30%, #fff, transparent),
                 radial-gradient(2px 2px at 40% 70%, #fff, transparent),
@@ -41,7 +43,6 @@
                 radial-gradient(1px 1px at 50% 40%, #fff, transparent),
                 radial-gradient(1px 1px at 90% 80%, #fff, transparent),
                 radial-gradient(2px 2px at 15% 15%, #fff, transparent);
-            animation: twinkle 4s infinite alternate;
         }
 
         .nebula {
@@ -51,28 +52,26 @@
             width: 100%;
             height: 100%;
             z-index: 0;
+            pointer-events: none;
             background: 
                 radial-gradient(ellipse at 30% 50%, rgba(128, 0, 255, 0.3) 0%, transparent 50%),
                 radial-gradient(ellipse at 70% 30%, rgba(0, 100, 255, 0.3) 0%, transparent 50%),
                 radial-gradient(ellipse at 50% 70%, rgba(255, 0, 128, 0.2) 0%, transparent 50%);
         }
 
-        @keyframes twinkle {
-            0% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
-        /* Container chính */
+        /* Container chính - CÓ THỂ CUỘN */
         .container {
             background: rgba(15, 5, 30, 0.95);
             border: 2px solid #b400ff;
             border-radius: 20px;
             padding: 35px 25px;
             text-align: center;
-            max-width: 450px;
+            max-width: 480px;
             width: 100%;
             position: relative;
             z-index: 1;
+            margin: 30px auto;
+            min-height: auto;
             box-shadow: 
                 0 0 50px rgba(180, 0, 255, 0.3),
                 0 0 100px rgba(0, 200, 255, 0.2),
@@ -232,20 +231,28 @@
         /* Badge */
         .badge {
             display: inline-block;
-            background: rgba(255, 170, 0, 0.2);
-            color: #ffaa00;
             padding: 6px 15px;
             border-radius: 20px;
             font-size: 12px;
-            margin-top: 15px;
+            margin: 5px;
+        }
+
+        .badge-time {
+            background: rgba(255, 170, 0, 0.2);
+            color: #ffaa00;
             border: 1px solid rgba(255, 170, 0, 0.3);
         }
 
-        .admin-badge {
-            background: rgba(255, 0, 0, 0.2);
-            color: #ff4444;
-            border: 1px solid rgba(255, 0, 0, 0.3);
-            margin-left: 5px;
+        .copy-msg {
+            color: #00ff99;
+            margin-top: 10px;
+            font-size: 13px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .copy-msg.show {
+            opacity: 1;
         }
 
         .info-box {
@@ -263,32 +270,182 @@
             color: #00ccff;
         }
 
-        .copy-msg {
-            color: #00ff99;
-            margin-top: 10px;
+        /* ============================== */
+        /*  PHẦN KEY ADMIN (ẨN)          */
+        /* ============================== */
+        .admin-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .admin-title {
+            color: #666;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: default;
+            user-select: none;
+        }
+
+        .admin-key {
+            color: #333;
             font-size: 13px;
-            opacity: 0;
-            transition: opacity 0.3s;
+            font-family: 'Courier New', monospace;
+            margin-top: 5px;
+            transition: color 0.3s;
+            cursor: pointer;
+            user-select: none;
         }
 
-        .copy-msg.show {
-            opacity: 1;
+        .admin-key:hover {
+            color: #ff4444;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
         }
 
+        .admin-key.revealed {
+            color: #ff4444;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+        }
+
+        .hint-text {
+            color: #555;
+            font-size: 10px;
+            font-style: italic;
+            margin-top: 3px;
+        }
+
+        /* ============================== */
+        /*  PHẦN TÊN MIỀN TÙY CHỈNH      */
+        /* ============================== */
+        .domain-section {
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(0, 200, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 200, 255, 0.2);
+        }
+
+        .domain-section label {
+            color: #aaa;
+            font-size: 12px;
+            display: block;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .domain-input-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .domain-prefix {
+            color: #888;
+            font-size: 14px;
+            font-family: 'Courier New', monospace;
+            white-space: nowrap;
+        }
+
+        .domain-input {
+            flex: 1;
+            min-width: 120px;
+            padding: 10px 12px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 200, 255, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            font-family: 'Courier New', monospace;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .domain-input:focus {
+            border-color: #00ccff;
+            box-shadow: 0 0 15px rgba(0, 200, 255, 0.2);
+        }
+
+        .domain-input::placeholder {
+            color: #555;
+        }
+
+        .btn-domain {
+            padding: 10px 18px;
+            background: linear-gradient(135deg, #00ccff, #0088cc);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .btn-domain:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(0, 200, 255, 0.3);
+        }
+
+        .your-domain {
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: rgba(0, 255, 153, 0.1);
+            border-radius: 6px;
+            color: #00ff99;
+            font-size: 14px;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+            display: none;
+        }
+
+        .your-domain.show {
+            display: block;
+        }
+
+        .your-domain a {
+            color: #00ff99;
+            text-decoration: none;
+        }
+
+        .your-domain a:hover {
+            text-decoration: underline;
+        }
+
+        /* ============================== */
+        /*  FOOTER                        */
+        /* ============================== */
+        .footer {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #555;
+            font-size: 10px;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #777;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #00ccff;
+        }
+
+        /* Responsive */
         @media (max-width: 480px) {
             .container {
                 padding: 25px 15px;
+                margin: 15px auto;
             }
-            h1 {
-                font-size: 24px;
-            }
-            .key-display {
-                font-size: 16px;
-            }
-            .btn {
-                font-size: 13px;
-                padding: 12px 16px;
-            }
+            h1 { font-size: 22px; }
+            .key-display { font-size: 15px; }
+            .btn { font-size: 13px; padding: 12px 14px; }
+            .domain-prefix { font-size: 11px; }
         }
     </style>
 </head>
@@ -300,13 +457,15 @@
     <div class="container">
         <div class="logo">🌌</div>
         <h1>Sh1ne Hub - Key Generator</h1>
-        <p class="subtitle">Tạo key để mở khóa script</p>
+        <p class="subtitle">Tạo key để mở khóa script Roblox</p>
 
+        <!-- Key Display -->
         <div class="key-container">
             <div class="key-label">🔒 Key của bạn</div>
             <div class="key-display" id="keyDisplay">Sh1ne</div>
         </div>
 
+        <!-- Nút -->
         <div class="buttons">
             <button class="btn btn-generate" onclick="generateKey()">
                 🎫 Tạo Key Mới
@@ -317,24 +476,89 @@
         </div>
 
         <p class="copy-msg" id="copyMsg">✅ Đã copy vào clipboard!</p>
+        <span class="badge badge-time">⏰ Key có hiệu lực 48 giờ</span>
 
-        <span class="badge">⏰ Key thường: 48 giờ</span>
-        <span class="badge admin-badge">👑 Admin: RzSh1ne (vĩnh viễn)</span>
-
+        <!-- Info Box -->
         <div class="info-box">
             📌 <span>Hướng dẫn:</span><br>
             1️⃣ Bấm <span>Tạo Key Mới</span> để lấy key<br>
             2️⃣ Bấm <span>Copy Key</span> để copy<br>
-            3️⃣ Dán key vào game Roblox<br>
-            4️⃣ Bấm <span>UNLOCK</span> để mở khóa<br>
+            3️⃣ Dán key vào game → <span>UNLOCK</span><br>
             <br>
-            🔑 <span>Key Admin:</span> RzSh1ne (dùng vĩnh viễn)<br>
             🔑 <span>Key Backup:</span> Sh1ne
+        </div>
+
+        <!-- ============================== -->
+        <!--  KEY ADMIN (ẨN)               -->
+        <!-- ============================== -->
+        <div class="admin-section">
+            <p class="admin-title">👑 Key Admin</p>
+            <p class="admin-key" id="adminKey" onclick="revealAdminKey()" title="Nhấp để hiện">
+                ••••••••••••••
+            </p>
+            <p class="hint-text">(Nhấp vào dấu chấm để hiện key admin)</p>
+        </div>
+
+        <!-- ============================== -->
+        <!--  TÊN MIỀN TÙY CHỈNH           -->
+        <!-- ============================== -->
+        <div class="domain-section">
+            <label>🌐 Tạo tên miền tùy chỉnh cho trang web của bạn:</label>
+            <div class="domain-input-group">
+                <span class="domain-prefix">https://</span>
+                <input 
+                    type="text" 
+                    class="domain-input" 
+                    id="domainInput" 
+                    placeholder="ten-cua-ban" 
+                    maxlength="50"
+                >
+                <span class="domain-prefix">.github.io/sh1ne-hub/</span>
+                <button class="btn-domain" onclick="createCustomDomain()">
+                    🔗 Tạo Link
+                </button>
+            </div>
+            <div class="your-domain" id="yourDomain">
+                ✅ Link của bạn: <a href="#" id="domainLink" target="_blank"></a>
+                <br>
+                <small style="color:#aaa;">(Copy link này và thay vào script Roblox)</small>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Sh1ne Hub © 2024 | 
+            <a href="https://github.com" target="_blank">GitHub</a> | 
+            <a href="#" onclick="alert('Phiên bản 2.0 - Evade Compatible')">v2.0</a>
         </div>
     </div>
 
     <script>
-        // Tạo key ngẫu nhiên
+        // ==============================
+        //  KEY ADMIN (ẨN)
+        // ==============================
+        const ADMIN_KEY = "RzSh1ne";
+        let adminRevealed = false;
+
+        function revealAdminKey() {
+            const adminKeyEl = document.getElementById("adminKey");
+            if (!adminRevealed) {
+                adminKeyEl.textContent = ADMIN_KEY;
+                adminKeyEl.classList.add("revealed");
+                adminRevealed = true;
+                
+                // Tự động ẩn lại sau 10 giây
+                setTimeout(() => {
+                    adminKeyEl.textContent = "••••••••••••••";
+                    adminKeyEl.classList.remove("revealed");
+                    adminRevealed = false;
+                }, 10000);
+            }
+        }
+
+        // ==============================
+        //  TẠO KEY NGẪU NHIÊN
+        // ==============================
         function generateKey() {
             const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             const specials = "!@#$%^&*_-+=.";
@@ -342,19 +566,14 @@
             
             let key = "Sh1ne-";
             
-            // 8 ký tự random (chữ + số)
             for (let i = 0; i < 8; i++) {
                 key += chars.charAt(Math.floor(Math.random() * chars.length));
             }
             
-            // 2 ký tự đặc biệt
             key += specials.charAt(Math.floor(Math.random() * specials.length));
             key += specials.charAt(Math.floor(Math.random() * specials.length));
-            
-            // Timestamp
             key += "-" + timestamp;
             
-            // Hiển thị
             const display = document.getElementById("keyDisplay");
             display.style.transform = "scale(1.1)";
             display.textContent = key;
@@ -367,88 +586,65 @@
                 display.style.textShadow = "0 0 10px rgba(0, 255, 150, 0.5)";
             }, 200);
             
-            // Reset nút copy
             const copyBtn = document.getElementById("copyBtn");
             copyBtn.textContent = "📋 Copy Key";
             copyBtn.classList.remove("copied");
-            
-            console.log("[Sh1ne] Key mới: " + key);
         }
 
-        // Copy key
+        // ==============================
+        //  COPY KEY
+        // ==============================
         function copyKey() {
             const key = document.getElementById("keyDisplay").textContent;
             
-            if (!key || key === "Nhấn nút để tạo key") {
+            if (!key) {
                 alert("⚠️ Hãy tạo key trước!");
                 return;
             }
             
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(key).then(() => {
-                    showCopySuccess();
-                }).catch(() => {
-                    fallbackCopy(key);
-                });
+                navigator.clipboard.writeText(key).then(() => showCopySuccess())
+                .catch(() => fallbackCopy(key));
             } else {
                 fallbackCopy(key);
             }
         }
 
         function fallbackCopy(text) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed";
-            textArea.style.left = "-9999px";
-            textArea.style.top = "-9999px";
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            
-            try {
-                document.execCommand("copy");
-                showCopySuccess();
-            } catch (err) {
-                alert("❌ Không thể copy! Hãy copy thủ công: " + text);
-            }
-            
-            document.body.removeChild(textArea);
+            const ta = document.createElement("textarea");
+            ta.value = text;
+            ta.style.cssText = "position:fixed;left:-9999px;top:-9999px";
+            document.body.appendChild(ta);
+            ta.focus(); ta.select();
+            try { document.execCommand("copy"); showCopySuccess(); }
+            catch(e) { alert("❌ Copy thủ công: " + text); }
+            document.body.removeChild(ta);
         }
 
         function showCopySuccess() {
-            const copyBtn = document.getElementById("copyBtn");
-            const copyMsg = document.getElementById("copyMsg");
-            
-            copyBtn.textContent = "✅ Đã Copy!";
-            copyBtn.classList.add("copied");
-            
-            copyMsg.classList.add("show");
-            
+            const btn = document.getElementById("copyBtn");
+            const msg = document.getElementById("copyMsg");
+            btn.textContent = "✅ Đã Copy!";
+            btn.classList.add("copied");
+            msg.classList.add("show");
             setTimeout(() => {
-                copyBtn.textContent = "📋 Copy Key";
-                copyBtn.classList.remove("copied");
-                copyMsg.classList.remove("show");
+                btn.textContent = "📋 Copy Key";
+                btn.classList.remove("copied");
+                msg.classList.remove("show");
             }, 2500);
         }
 
-        // Phím tắt
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                generateKey();
+        // ==============================
+        //  TÊN MIỀN TÙY CHỈNH
+        // ==============================
+        function createCustomDomain() {
+            const input = document.getElementById("domainInput").value.trim().toLowerCase();
+            
+            if (!input) {
+                alert("⚠️ Vui lòng nhập tên miền!");
+                return;
             }
-            if (e.ctrlKey && e.key === 'k') {
-                e.preventDefault();
-                copyKey();
-            }
-        });
-
-        // Tự động tạo key khi vào trang
-        window.onload = function() {
-            // Để key mặc định trước, người dùng tự tạo
-            console.log("[Sh1ne] Web Get Key đã sẵn sàng!");
-            console.log("[Sh1ne] Key Admin: RzSh1ne");
-            console.log("[Sh1ne] Nhấn Enter hoặc bấm nút để tạo key mới");
-        };
-    </script>
-</body>
-  </html>
+            
+            // Kiểm tra ký tự hợp lệ
+            if (!/^[a-z0-9-]+$/.test(input)) {
+                alert("❌ Tên miền chỉ 
