@@ -3,359 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sh1ne Hub - Key Generator</title>
+    <title>RzHub - Key System</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #000010;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        /* Nền Galaxy */
-        .stars {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 0;
-            pointer-events: none;
-            background: 
-                radial-gradient(2px 2px at 20% 30%, #fff, transparent),
-                radial-gradient(2px 2px at 40% 70%, #fff, transparent),
-                radial-gradient(1px 1px at 60% 20%, #fff, transparent),
-                radial-gradient(1px 1px at 80% 50%, #fff, transparent),
-                radial-gradient(2px 2px at 10% 80%, #fff, transparent),
-                radial-gradient(1px 1px at 70% 60%, #fff, transparent),
-                radial-gradient(2px 2px at 30% 50%, #fff, transparent),
-                radial-gradient(1px 1px at 50% 40%, #fff, transparent),
-                radial-gradient(1px 1px at 90% 80%, #fff, transparent),
-                radial-gradient(2px 2px at 15% 15%, #fff, transparent);
-        }
-
-        .nebula {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 0;
-            pointer-events: none;
-            background: 
-                radial-gradient(ellipse at 30% 50%, rgba(128,0,255,0.3) 0%, transparent 50%),
-                radial-gradient(ellipse at 70% 30%, rgba(0,100,255,0.3) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 70%, rgba(255,0,128,0.2) 0%, transparent 50%);
-        }
-
-        .container {
-            background: rgba(15,5,30,0.95);
-            border: 2px solid #b400ff;
-            border-radius: 20px;
-            padding: 35px 25px;
-            text-align: center;
-            max-width: 480px;
-            width: 100%;
-            position: relative;
-            z-index: 1;
-            box-shadow: 0 0 50px rgba(180,0,255,0.3), 0 0 100px rgba(0,200,255,0.2);
-            animation: glow 3s infinite alternate;
-        }
-
-        @keyframes glow {
-            0% { box-shadow: 0 0 30px rgba(180,0,255,0.2); border-color: #b400ff; }
-            100% { box-shadow: 0 0 60px rgba(180,0,255,0.5); border-color: #00ccff; }
-        }
-
-        .logo { font-size: 50px; animation: bounce 2s infinite; }
-        @keyframes bounce {
-            0%,100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        h1 {
-            font-size: 28px;
-            margin: 5px 0;
-            background: linear-gradient(90deg, #b400ff, #00ccff, #b400ff);
-            background-size: 200% 100%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradient 3s infinite linear;
-        }
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
-        }
-
-        .subtitle { color: #aaa; font-size: 13px; margin-bottom: 20px; }
-
-        .key-container {
-            background: rgba(0,0,0,0.6);
-            border: 2px solid #b400ff;
-            border-radius: 12px;
-            padding: 18px 15px;
-            margin: 20px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .key-label {
-            color: #888;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .key-display {
-            font-size: 20px;
-            font-family: 'Courier New', monospace;
-            color: #00ff99;
-            font-weight: bold;
-            word-break: break-all;
-            min-height: 30px;
-            position: relative;
-            z-index: 1;
-            text-shadow: 0 0 10px rgba(0,255,150,0.5);
-            transition: all 0.3s;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 14px 24px;
-            border: none;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            flex: 1;
-            min-width: 120px;
-        }
-
-        .btn-generate {
-            background: linear-gradient(135deg, #b400ff, #00ccff);
-            color: white;
-        }
-        .btn-generate:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(180,0,255,0.4);
-        }
-
-        .btn-copy {
-            background: rgba(0,255,153,0.2);
-            color: #00ff99;
-            border: 2px solid #00ff99;
-        }
-        .btn-copy:hover { background: rgba(0,255,153,0.3); }
-        .btn-copy.copied { background: #00ff99; color: #000; }
-
-        .badge {
-            display: inline-block;
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            margin: 5px;
-            background: rgba(255,170,0,0.2);
-            color: #ffaa00;
-            border: 1px solid rgba(255,170,0,0.3);
-        }
-
-        .copy-msg {
-            color: #00ff99;
-            margin-top: 8px;
-            font-size: 13px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .copy-msg.show { opacity: 1; }
-
-        .info-box {
-            margin-top: 20px;
-            padding: 12px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 10px;
-            text-align: left;
-            font-size: 11px;
-            color: #aaa;
-            line-height: 1.8;
-        }
-        .info-box span { color: #00ccff; }
-
-        /* Key Admin Ẩn */
-        .admin-section {
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-        .admin-key {
-            color: #333;
-            font-size: 13px;
-            font-family: 'Courier New', monospace;
-            margin-top: 5px;
-            cursor: pointer;
-            transition: color 0.3s;
-            user-select: none;
-        }
-        .admin-key:hover { color: #ff4444; }
-        .admin-key.revealed {
-            color: #ff4444;
-            text-shadow: 0 0 15px rgba(255,0,0,0.7);
-        }
-        .hint-text { color: #555; font-size: 10px; font-style: italic; }
-
-        .footer {
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: #555;
-            font-size: 10px;
-        }
-
-        @media (max-width: 480px) {
-            .container { padding: 25px 15px; }
-            h1 { font-size: 22px; }
-            .key-display { font-size: 15px; }
-            .btn { font-size: 13px; padding: 12px 14px; }
-        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:#080816;color:#fff;font-family:Segoe UI,sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:15px}
+        .container{background:rgba(15,15,35,.95);border:2px solid #5555ff;border-radius:16px;padding:25px;max-width:480px;width:100%;box-shadow:0 0 50px rgba(80,80,255,.25)}
+        h1{text-align:center;color:#8080ff;font-size:20px;margin-bottom:5px}
+        .sub{text-align:center;color:#888;font-size:11px;margin-bottom:15px}
+        .key-box{background:rgba(0,0,0,.5);border:2px solid #5555ff;border-radius:10px;padding:15px;text-align:center;margin:12px 0;min-height:55px;display:flex;align-items:center;justify-content:center}
+        .key-text{font-size:16px;font-family:Courier New,monospace;color:#00ff88;word-break:break-all}
+        .key-text.locked{color:#ff4444}
+        .btn{padding:10px 20px;border:none;border-radius:8px;font-size:13px;font-weight:bold;cursor:pointer;width:100%;margin:5px 0;transition:.2s;text-transform:uppercase;letter-spacing:1px}
+        .btn-get{background:linear-gradient(135deg,#5555ff,#8080ff);color:#fff}
+        .btn-get:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(80,80,255,.4)}
+        .btn-get:disabled{opacity:.4;cursor:not-allowed;transform:none}
+        .btn-copy{background:rgba(0,255,136,.15);color:#00ff88;border:2px solid #00ff88}
+        .btn-copy:hover{background:rgba(0,255,136,.25)}
+        .status{color:#ffcc00;font-size:11px;text-align:center;margin-top:8px;opacity:0;transition:.3s}
+        .status.show{opacity:1}
+        .info-box{background:rgba(255,255,255,.03);border-radius:8px;padding:12px;margin-top:12px;font-size:10px;color:#999;line-height:1.6;text-align:left}
+        .info-box span{color:#8080ff}
+        .count{text-align:center;color:#888;font-size:10px;margin-top:8px}
+        .count b{color:#00ff88}
     </style>
 </head>
 <body>
-    <div class="stars"></div>
-    <div class="nebula"></div>
-
     <div class="container">
-        <div class="logo">🌌</div>
-        <h1>Sh1ne Hub - Key Generator</h1>
-        <p class="subtitle">Tạo key ngẫu nhiên để mở khóa script</p>
-
-        <div class="key-container">
-            <div class="key-label">🔒 Key của bạn</div>
-            <div class="key-display" id="keyDisplay">Sh1ne</div>
+        <h1>🔑 RzHub Key</h1>
+        <p class="sub">10 key mới mỗi ngày · Mỗi key dùng 2 lần</p>
+        
+        <div class="key-box">
+            <div class="key-text locked" id="keyDisplay">🔒 Chưa có key</div>
         </div>
-
-        <div class="buttons">
-            <button class="btn btn-generate" onclick="generateKey()">🎫 Tạo Key Mới</button>
-            <button class="btn btn-copy" id="copyBtn" onclick="copyKey()">📋 Copy Key</button>
-        </div>
-
-        <p class="copy-msg" id="copyMsg">✅ Đã copy vào clipboard!</p>
-        <span class="badge">⏰ Key có hiệu lực 48 giờ</span>
-
+        
+        <button class="btn btn-get" id="btnGet" onclick="getKey()">🎫 LẤY KEY HÔM NAY</button>
+        <button class="btn btn-copy" onclick="copyKey()">📋 COPY KEY</button>
+        
+        <p class="status" id="statusMsg"></p>
+        <p class="count">Key còn lại hôm nay: <b id="keyCount">10</b></p>
+        
         <div class="info-box">
             📌 <span>Hướng dẫn:</span><br>
-            1️⃣ Bấm <span>Tạo Key Mới</span> để lấy key<br>
-            2️⃣ Bấm <span>Copy Key</span> để copy<br>
-            3️⃣ Dán key vào game Roblox<br>
-            4️⃣ Bấm <span>UNLOCK</span> để mở khóa
+            1. Bấm <span>LẤY KEY</span> để nhận key<br>
+            2. <span>Copy key</span> → Dán vào game<br>
+            3. Mỗi key chỉ <span>2 người</span> dùng được<br>
+            4. Hết lượt → Lấy key mới<br>
+            5. 00:00 key tự reset
         </div>
-
-        <!-- Key Admin Ẩn -->
-        <div class="admin-section">
-            <p class="admin-key" id="adminKey" onclick="revealAdmin()">••••••••••••••</p>
-            <p class="hint-text">(Nhấp vào dấu chấm để hiện key admin)</p>
-        </div>
-
-        <div class="footer">Sh1ne Hub © 2024 | v2.0</div>
     </div>
 
     <script>
-        const ADMIN_KEY = "RzSh1ne";
-        let revealed = false;
+        const STORAGE_KEY = "rz_keys_v2";
+        const MAX_USES = 2;
+        const DAILY_KEYS = 10;
 
-        function revealAdmin() {
-            const el = document.getElementById("adminKey");
-            if (!revealed) {
-                el.textContent = ADMIN_KEY;
-                el.classList.add("revealed");
-                revealed = true;
-                setTimeout(() => {
-                    el.textContent = "••••••••••••••";
-                    el.classList.remove("revealed");
-                    revealed = false;
-                }, 10000);
-            }
+        function getToday() {
+            return new Date().toISOString().split('T')[0];
         }
 
-        function generateKey() {
+        function loadData() {
+            let data = localStorage.getItem(STORAGE_KEY);
+            if (data) {
+                try { return JSON.parse(data); } catch(e) {}
+            }
+            return { date: "", keys: {} };
+        }
+
+        function saveData(data) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
+
+        function generateKey(index) {
             const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            const specials = "!@#$%^&*_-+=.";
-            const ts = Date.now().toString(36).slice(-4).toUpperCase();
+            const specials = "!@#$%^&*_-+=";
+            let key = "Rz-";
+            // Mã ngày (6 ký tự từ ngày tháng)
+            const today = getToday().replace(/-/g, '');
+            for (let i = 0; i < 6; i++) {
+                key += chars.charAt((parseInt(today.charAt(i % 8)) + index * 7 + i * 3) % chars.length);
+            }
+            key += specials.charAt((index * 4 + 2) % specials.length);
+            key += specials.charAt((index * 7 + 5) % specials.length);
+            key += "-" + today.slice(-4);
+            return key;
+        }
+
+        function initKeys() {
+            let data = loadData();
+            const today = getToday();
             
-            let key = "Sh1ne-";
-            for (let i = 0; i < 8; i++) key += chars.charAt(Math.floor(Math.random() * chars.length));
-            key += specials.charAt(Math.floor(Math.random() * specials.length));
-            key += specials.charAt(Math.floor(Math.random() * specials.length));
-            key += "-" + ts;
+            if (data.date !== today) {
+                // Ngày mới → Tạo 10 key mới
+                data = { date: today, keys: {} };
+                for (let i = 0; i < DAILY_KEYS; i++) {
+                    const key = generateKey(i);
+                    data.keys[key] = MAX_USES; // Mỗi key 2 lượt
+                }
+                saveData(data);
+            }
+            return data;
+        }
+
+        function updateCount() {
+            const data = loadData();
+            const today = getToday();
+            if (data.date !== today) {
+                initKeys();
+                document.getElementById('keyCount').textContent = DAILY_KEYS;
+                return;
+            }
+            let available = 0;
+            for (let k in data.keys) {
+                if (data.keys[k] > 0) available++;
+            }
+            document.getElementById('keyCount').textContent = available;
+        }
+
+        function getKey() {
+            const data = loadData();
+            const today = getToday();
             
-            const display = document.getElementById("keyDisplay");
-            display.style.transform = "scale(1.1)";
-            display.textContent = key;
-            display.style.color = "#fff";
-            setTimeout(() => {
-                display.style.transform = "scale(1)";
-                display.style.color = "#00ff99";
-            }, 200);
-            
-            document.getElementById("copyBtn").textContent = "📋 Copy Key";
-            document.getElementById("copyBtn").classList.remove("copied");
+            if (data.date !== today) {
+                initKeys();
+                return getKey();
+            }
+
+            // Tìm key còn lượt
+            for (let k in data.keys) {
+                if (data.keys[k] > 0) {
+                    data.keys[k]--;
+                    saveData(data);
+                    
+                    const display = document.getElementById('keyDisplay');
+                    display.textContent = k;
+                    display.classList.remove('locked');
+                    document.getElementById('statusMsg').textContent = '✅ Key còn ' + data.keys[k] + ' lượt!';
+                    document.getElementById('statusMsg').classList.add('show');
+                    setTimeout(() => document.getElementById('statusMsg').classList.remove('show'), 2500);
+                    updateCount();
+                    pcall(function() { navigator.clipboard.writeText(k); });
+                    return;
+                }
+            }
+
+            document.getElementById('statusMsg').textContent = '❌ Hết key hôm nay! Quay lại sau 00:00';
+            document.getElementById('statusMsg').classList.add('show');
+            setTimeout(() => document.getElementById('statusMsg').classList.remove('show'), 3000);
         }
 
         function copyKey() {
-            const key = document.getElementById("keyDisplay").textContent;
-            if (!key) return alert("⚠️ Hãy tạo key trước!");
-            
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(key).then(() => showCopyOk())
-                .catch(() => fallback(key));
-            } else { fallback(key); }
+            const text = document.getElementById('keyDisplay').textContent;
+            if (text.includes('🔒')) {
+                document.getElementById('statusMsg').textContent = '⚠️ Lấy key trước!';
+                document.getElementById('statusMsg').classList.add('show');
+                setTimeout(() => document.getElementById('statusMsg').classList.remove('show'), 2000);
+                return;
+            }
+            navigator.clipboard.writeText(text).then(() => {
+                document.getElementById('statusMsg').textContent = '✅ Đã copy!';
+                document.getElementById('statusMsg').classList.add('show');
+                setTimeout(() => document.getElementById('statusMsg').classList.remove('show'), 2000);
+            });
         }
 
-        function fallback(text) {
-            const ta = document.createElement("textarea");
-            ta.value = text;
-            ta.style.cssText = "position:fixed;left:-9999px";
-            document.body.appendChild(ta);
-            ta.select();
-            try { document.execCommand("copy"); showCopyOk(); }
-            catch(e) { alert("Copy thủ công: " + text); }
-            document.body.removeChild(ta);
-        }
+        // Khởi tạo
+        initKeys();
+        updateCount();
+        document.getElementById('btnGet').textContent = '🎫 LẤY KEY HÔM NAY (' + DAILY_KEYS + ' key)';
 
-        function showCopyOk() {
-            const btn = document.getElementById("copyBtn");
-            const msg = document.getElementById("copyMsg");
-            btn.textContent = "✅ Đã Copy!";
-            btn.classList.add("copied");
-            msg.classList.add("show");
-            setTimeout(() => {
-                btn.textContent = "📋 Copy Key";
-                btn.classList.remove("copied");
-                msg.classList.remove("show");
-            }, 2500);
-        }
-
+        // Phím tắt
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') { e.preventDefault(); generateKey(); }
+            if (e.key === 'Enter') getKey();
             if (e.ctrlKey && e.key === 'c') { e.preventDefault(); copyKey(); }
         });
     </script>
 </body>
-    </html>
+</html>
